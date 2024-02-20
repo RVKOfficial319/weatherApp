@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .weather-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .loading-indicator {
+    margin-top: 20px;
+  }

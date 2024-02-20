@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { WeatherService } from '../weather.service';
-import { throwError, interval, of, Observable } from 'rxjs';
-import { mergeMap, retryWhen, catchError, take, delay } from 'rxjs/operators';
-
+import { throwError, of, Observable } from 'rxjs';
+import { retryWhen, catchError, take, mergeMap, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'weather',
@@ -12,15 +11,15 @@ import { mergeMap, retryWhen, catchError, take, delay } from 'rxjs/operators';
 export class WeatherComponent {
   city: string = '';
   loading: boolean = false;
-  weatherData: any;
+  weatherDataArray: any[] = [];
 
   constructor(private weatherService: WeatherService) {}
 
   getWeather() {
     this.loading = true;
-  
+
     const geocodingEndpoint = `https://geocode.maps.co/search?q=${this.city}&api_key=65ba2165024d5660860737spwaae037`;
-  
+
     this.weatherService.getWeather(this.city)
       .pipe(
         retryWhen(errors =>
@@ -43,7 +42,7 @@ export class WeatherComponent {
       )
       .subscribe(
         (weatherData: any) => {
-          this.weatherData = weatherData;
+          this.weatherDataArray.unshift(weatherData); // Add new data to the beginning of the array
           this.loading = false;
         },
         (weatherError: any) => {
@@ -52,8 +51,4 @@ export class WeatherComponent {
         }
       );
   }
-
-  
-  
 }
-
