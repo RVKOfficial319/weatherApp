@@ -1,0 +1,18 @@
+<div class="container">
+    <h1 class="mb-4">Weather Information System</h1>
+    <div class="form-group">
+        <label for="cityInput">Enter City:</label>
+    <input class="form-control" type="text" [(ngModel)]="city" placeholder="Enter city" />
+    </div>
+    <button class="btn btn-primary mb-4" (click)="getWeather()">Get Weather</button>
+  
+    <div *ngIf="loading" class="loading-indicator">Loading...</div>
+  
+    <div *ngIf="weatherData">
+      <h2>{{ weatherData.location.name }}, {{ weatherData.location.country }}</h2>
+      <p>Temperature: {{ weatherData.current.temp_c }}°C / {{ weatherData.current.temp_f }}°F</p>
+      <p>Humidity: {{ weatherData.current.humidity }}%</p>
+      <p>Weather: {{ weatherData.current.condition.text }}</p>
+    </div>
+  </div>
+  
